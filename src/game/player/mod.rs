@@ -5,6 +5,10 @@ mod systems;
 
 use systems::*;
 
+use crate::AppState;
+
+use super::SimulationState;
+
 #[derive(SystemSet, Debug, Hash, PartialEq, Eq, Clone)]
 pub struct MovementSystemSet;
 
@@ -15,13 +19,30 @@ pub struct PlayerPlugin;
 
 impl Plugin for PlayerPlugin {
     fn build(&self, app: &mut App) {
-        app.configure_set(MovementSystemSet.before(ConfinementSystemSet))
-            // Startup Systems
-            .add_startup_system(spawn_player)
+        app
+            // Configure System Sets
+            .configure_set(MovementSystemSet.before(ConfinementSystemSet))
+            // On Enter State
+            .add_system(spawn_player.in_schedule(OnEnter(AppState::Game)))
             // Systems
-            .add_system(player_movement.in_set(MovementSystemSet))
-            .add_system(confine_player_movement.in_set(ConfinementSystemSet))
-            .add_system(player_enemy_collision)
-            .add_system(player_star_collision);
+            .add_system(
+                player_movement
+                    .in_set(MovementSystemSet)
+                    .run_if(in_state(AppState::Game))
+                    .run_if(in_state(SimulationState::Running)),
+            )
+            .add_system(
+                confine_player_movement
+                    .in_set(ConfinementSystemSet)
+                    .run_if(in_state(AppState::Game))
+                    .run_if(in_state(SimulationState::Running)),
+            )
+            .add_systems(
+                (player_enemy_collision, player_star_collision)
+                    .in_set(OnUpdate(AppState::Game))
+                    .in_set(OnUpdate(SimulationState::Running)),
+            )
+            // On Exit State
+            .add_system(despawn_player.in_schedule(OnExit(AppState::Game)));
     }
 }
