@@ -23,7 +23,8 @@ impl Plugin for EnemyPlugin {
             // Resources
             .init_resource::<EnemySpawnTimer>()
             // Startup Systems
-            .add_startup_system(spawn_enemies)
+            //.add_startup_system(spawn_enemies)
+            .add_system(spawn_enemies.in_schedule(OnEnter(AppState::Game)))
             // Systems
             .add_systems(
                 (
