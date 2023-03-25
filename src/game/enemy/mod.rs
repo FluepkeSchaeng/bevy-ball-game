@@ -23,7 +23,6 @@ impl Plugin for EnemyPlugin {
             // Resources
             .init_resource::<EnemySpawnTimer>()
             // Startup Systems
-            //.add_startup_system(spawn_enemies)
             .add_system(spawn_enemies.in_schedule(OnEnter(AppState::Game)))
             // Systems
             .add_systems(
@@ -36,6 +35,8 @@ impl Plugin for EnemyPlugin {
                 )
                     .in_set(OnUpdate(AppState::Game))
                     .in_set(OnUpdate(SimulationState::Running)),
-            );
+            )
+            // Exit State Systems
+            .add_system(despawn_enemies.in_schedule(OnExit(AppState::Game)));
     }
 }
