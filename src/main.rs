@@ -17,6 +17,7 @@ fn main() {
     App::new()
         .add_plugins(DefaultPlugins)
         .init_resource::<Score>()
+        .init_resource::<HighScores>()
         .init_resource::<StarSpawnTimer>()
         .init_resource::<EnemySpawnTimer>()
         .add_event::<GameOver>()
@@ -60,6 +61,17 @@ pub struct Score {
 impl Default for Score {
     fn default() -> Self {
         Score { value: 0 }
+    }
+}
+
+#[derive(Resource)]
+pub struct HighScores {
+    pub scores: Vec<(String, u32)>,
+}
+
+impl Default for HighScores {
+    fn default() -> Self {
+        HighScores { scores: Vec::new() }
     }
 }
 
