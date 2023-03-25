@@ -11,3 +11,17 @@ Please be sure to have the latest version of [Rust](https://rust-lang.org) insta
 Build the project with `cargo build`
 
 Run the project with `cargo run`
+
+# Assets
+
+Following assets are used from [kenney.nl](https://kenney.nl):
+- https://www.kenney.nl/assets/rolling-ball-assets
+    - `rollingballassets/PNG/Default/ball_blue_large.png`
+    - `rollingballassets/PNG/Default/ball_red_large.png`
+    - `rollingballassets/PNG/Default/star.png`
+- https://www.kenney.nl/assets/sci-fi-sounds
+    - `scifisounds/Audio/explosionCrunch_000.ogg`
+    - `scifisounds/Audio/laserLarge_000.ogg`
+- https://www.kenney.nl/assets/interface-sounds
+    - `interfacesounds/Audio/pluck_001.ogg`
+    - `interfacesounds/Audio/pluck_002.ogg`
