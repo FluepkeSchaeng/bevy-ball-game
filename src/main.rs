@@ -285,12 +285,12 @@ pub fn confine_enemy_movement(
 
 pub fn enemy_player_collision(
     mut commands: Commands,
-    mut player_query: Query<(Entity, &Transform), With<Player>>,
+    player_query: Query<(Entity, &Transform), With<Player>>,
     enemy_query: Query<&Transform, With<Enemy>>,
     asset_server: Res<AssetServer>,
     audio: Res<Audio>,
 ) {
-    if let Ok((player_entity, player_transform)) = player_query.get_single_mut() {
+    if let Ok((player_entity, player_transform)) = player_query.get_single() {
         for enemy_transform in enemy_query.iter() {
             let distance = player_transform
                 .translation
