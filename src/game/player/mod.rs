@@ -15,8 +15,7 @@ pub struct PlayerPlugin;
 
 impl Plugin for PlayerPlugin {
     fn build(&self, app: &mut App) {
-        app
-            .configure_set(MovementSystemSet.before(ConfinementSystemSet))
+        app.configure_set(MovementSystemSet.before(ConfinementSystemSet))
             // Startup Systems
             .add_startup_system(spawn_player)
             // Systems
