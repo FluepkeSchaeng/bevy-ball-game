@@ -7,12 +7,24 @@ use game::GamePlugin;
 use main_menu::MainMenuPlugin;
 use systems::*;
 
-use bevy::prelude::*;
+use bevy::{
+    prelude::*,
+    window::{WindowMode, WindowResolution},
+};
 
 fn main() {
     App::new()
         // Bevy Plugins
-        .add_plugins(DefaultPlugins)
+        // .add_plugins(DefaultPlugins)
+        .add_plugins(DefaultPlugins.set(WindowPlugin {
+            primary_window: Some(Window {
+                title: "Ball Game!".to_string(),
+                resolution: WindowResolution::new(1800.0, 900.0).with_scale_factor_override(1.0),
+                mode: WindowMode::Windowed,
+                ..default()
+            }),
+            ..default()
+        }))
         .add_state::<AppState>()
         // My Plugins
         .add_plugin(MainMenuPlugin)
