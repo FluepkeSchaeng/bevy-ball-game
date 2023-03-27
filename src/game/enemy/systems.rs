@@ -14,19 +14,7 @@ pub fn spawn_enemies(
     let window = window_query.get_single().unwrap();
 
     for _ in 0..NUMBER_OF_ENEMIES {
-        let random_x = random::<f32>() * window.width();
-        let random_y = random::<f32>() * window.height();
-
-        commands.spawn((
-            SpriteBundle {
-                transform: Transform::from_xyz(random_x, random_y, 0.0),
-                texture: asset_server.load("sprites/ball_red_large.png"),
-                ..default()
-            },
-            Enemy {
-                direction: Vec2::new(random::<f32>(), random::<f32>()).normalize(),
-            },
-        ));
+        spawn_enemy(&mut commands, window, &asset_server);
     }
 }
 
@@ -129,18 +117,26 @@ pub fn spawn_enemies_over_time(
 ) {
     if enemy_spawn_timer.timer.finished() {
         let window = window_query.get_single().unwrap();
-        let random_x = random::<f32>() * window.width();
-        let random_y = random::<f32>() * window.height();
-
-        commands.spawn((
-            SpriteBundle {
-                transform: Transform::from_xyz(random_x, random_y, 0.0),
-                texture: asset_server.load("sprites/ball_red_large.png"),
-                ..default()
-            },
-            Enemy {
-                direction: Vec2::new(random::<f32>(), random::<f32>()).normalize(),
-            },
-        ));
+        spawn_enemy(&mut commands, window, &asset_server);
     }
+}
+
+fn spawn_enemy(
+    commands: &mut Commands,
+    window: &Window,
+    asset_server: &Res<AssetServer>,
+) {
+    let random_x = random::<f32>() * window.width();
+    let random_y = random::<f32>() * window.height();
+
+    commands.spawn((
+        SpriteBundle {
+            transform: Transform::from_xyz(random_x, random_y, 0.0),
+            texture: asset_server.load("sprites/ball_red_large.png"),
+            ..default()
+        },
+        Enemy {
+            direction: Vec2::new(random::<f32>(), random::<f32>()).normalize(),
+        },
+    ));
 }
