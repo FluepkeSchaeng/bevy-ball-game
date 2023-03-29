@@ -2,7 +2,10 @@ use bevy::prelude::*;
 
 use crate::main_menu::{
     components::{MainMenu, PlayButton, QuitButton},
-    styles::{get_button_text_style, BUTTON_STYLE, IMAGE_STYLE, NORMAL_BUTTON_COLOR, get_title_text_style, TITLE_STYLE, MAIN_MENU_STYLE},
+    styles::{
+        get_button_text_style, get_title_text_style, BUTTON_STYLE, IMAGE_STYLE, MAIN_MENU_STYLE,
+        NORMAL_BUTTON_COLOR, TITLE_STYLE,
+    },
 };
 
 pub fn spawn_main_menu(mut commands: Commands, asset_server: Res<AssetServer>) {
