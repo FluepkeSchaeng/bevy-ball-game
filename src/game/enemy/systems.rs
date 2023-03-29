@@ -121,11 +121,7 @@ pub fn spawn_enemies_over_time(
     }
 }
 
-fn spawn_enemy(
-    commands: &mut Commands,
-    window: &Window,
-    asset_server: &Res<AssetServer>,
-) {
+fn spawn_enemy(commands: &mut Commands, window: &Window, asset_server: &Res<AssetServer>) {
     let random_x = random::<f32>() * window.width();
     let random_y = random::<f32>() * window.height();
 

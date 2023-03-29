@@ -16,7 +16,7 @@ pub fn spawn_camera(mut commands: Commands, window_query: Query<&Window, With<Pr
 pub fn transition_to_game_state(
     keyboard_input: Res<Input<KeyCode>>,
     app_state: Res<State<AppState>>,
-    mut next_app_state: ResMut<NextState<AppState>>
+    mut next_app_state: ResMut<NextState<AppState>>,
 ) {
     if keyboard_input.just_pressed(KeyCode::G) {
         if app_state.0 != AppState::Game {
