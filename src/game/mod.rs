@@ -19,9 +19,9 @@ pub struct GamePlugin;
 impl Plugin for GamePlugin {
     fn build(&self, app: &mut App) {
         app
+            .add_state::<SimulationState>()
             // Events
             .add_event::<GameOver>()
-            .add_state::<SimulationState>()
             // OnEnter Systems
             .add_system(pause_simulation.in_schedule(OnEnter(AppState::Game)))
             // My Plugins
