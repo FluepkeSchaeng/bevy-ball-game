@@ -34,18 +34,19 @@ pub fn transition_to_main_menu_state(
     if keyboard_input.just_pressed(KeyCode::M) {
         if app_state.0 != AppState::MainMenu {
             next_app_state.set(AppState::MainMenu);
-            // this used the unpreferred API, above is using the preferred API
-            // commands.insert_resource(NextState(Some(AppState::MainMenu)));
-            // commands.insert_resource(NextState(Some(SimulationState::Paused)));
             println!("Entered AppState::MainMenu");
         }
     }
 }
 
-pub fn handle_game_over(mut commands: Commands, mut game_over_event_reader: EventReader<GameOver>) {
+pub fn handle_game_over(
+    mut game_over_event_reader: EventReader<GameOver>,
+    mut next_app_state: ResMut<NextState<AppState>>,
+) {
     for event in game_over_event_reader.iter() {
         println!("Your final score is: {}", event.score.to_string());
-        commands.insert_resource(NextState(Some(AppState::GameOver)));
+        next_app_state.set(AppState::GameOver);
+        println!("Entered AppState::GameOver");
     }
 }
 
