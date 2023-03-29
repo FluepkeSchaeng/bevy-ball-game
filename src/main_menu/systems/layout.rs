@@ -2,21 +2,14 @@ use bevy::prelude::*;
 
 use crate::main_menu::{
     components::{MainMenu, PlayButton, QuitButton},
-    styles::{BUTTON_STYLE, NORMAL_BUTTON_COLOR},
+    styles::{get_button_text_style, BUTTON_STYLE, IMAGE_STYLE, NORMAL_BUTTON_COLOR, get_title_text_style, TITLE_STYLE, MAIN_MENU_STYLE},
 };
 
 pub fn spawn_main_menu(mut commands: Commands, asset_server: Res<AssetServer>) {
     commands
         .spawn((
             NodeBundle {
-                style: Style {
-                    flex_direction: FlexDirection::Column,
-                    justify_content: JustifyContent::Center,
-                    align_items: AlignItems::Center,
-                    size: Size::new(Val::Percent(100.0), Val::Percent(100.0)),
-                    gap: Size::new(Val::Px(8.0), Val::Px(8.0)),
-                    ..default()
-                },
+                style: MAIN_MENU_STYLE,
                 ..default()
             },
             MainMenu {},
@@ -25,28 +18,13 @@ pub fn spawn_main_menu(mut commands: Commands, asset_server: Res<AssetServer>) {
             // ------ Title ------
             parent
                 .spawn(NodeBundle {
-                    style: Style {
-                        flex_direction: FlexDirection::Row,
-                        justify_content: JustifyContent::Center,
-                        align_items: AlignItems::Center,
-                        size: Size::new(Val::Px(300.0), Val::Px(120.0)),
-                        ..default()
-                    },
+                    style: TITLE_STYLE,
                     ..default()
                 })
                 .with_children(|parent| {
                     // Image 1
                     parent.spawn(ImageBundle {
-                        style: Style {
-                            size: Size::new(Val::Px(64.0), Val::Px(64.0)),
-                            margin: UiRect::new(
-                                Val::Px(8.0),
-                                Val::Px(8.0),
-                                Val::Px(8.0),
-                                Val::Px(8.0),
-                            ),
-                            ..default()
-                        },
+                        style: IMAGE_STYLE,
                         image: asset_server.load("sprites/ball_blue_large.png").into(),
                         ..default()
                     });
@@ -55,11 +33,7 @@ pub fn spawn_main_menu(mut commands: Commands, asset_server: Res<AssetServer>) {
                         text: Text {
                             sections: vec![TextSection::new(
                                 "Bevy Ball Game",
-                                TextStyle {
-                                    font: asset_server.load("fonts/FiraSans-Bold.ttf"),
-                                    font_size: 64.0,
-                                    color: Color::WHITE,
-                                },
+                                get_title_text_style(&asset_server),
                             )],
                             alignment: TextAlignment::Center,
                             ..default()
@@ -68,16 +42,7 @@ pub fn spawn_main_menu(mut commands: Commands, asset_server: Res<AssetServer>) {
                     });
                     // Image 2
                     parent.spawn(ImageBundle {
-                        style: Style {
-                            size: Size::new(Val::Px(64.0), Val::Px(64.0)),
-                            margin: UiRect::new(
-                                Val::Px(8.0),
-                                Val::Px(8.0),
-                                Val::Px(8.0),
-                                Val::Px(8.0),
-                            ),
-                            ..default()
-                        },
+                        style: IMAGE_STYLE,
                         image: asset_server.load("sprites/ball_red_large.png").into(),
                         ..default()
                     });
@@ -97,11 +62,7 @@ pub fn spawn_main_menu(mut commands: Commands, asset_server: Res<AssetServer>) {
                         text: Text {
                             sections: vec![TextSection::new(
                                 "Play",
-                                TextStyle {
-                                    font: asset_server.load("fonts/FiraSans-Bold.ttf"),
-                                    font_size: 32.0,
-                                    color: Color::WHITE,
-                                },
+                                get_button_text_style(&asset_server),
                             )],
                             alignment: TextAlignment::Center,
                             ..default()
@@ -124,11 +85,7 @@ pub fn spawn_main_menu(mut commands: Commands, asset_server: Res<AssetServer>) {
                         text: Text {
                             sections: vec![TextSection::new(
                                 "Quit",
-                                TextStyle {
-                                    font: asset_server.load("fonts/FiraSans-Bold.ttf"),
-                                    font_size: 32.0,
-                                    color: Color::WHITE,
-                                },
+                                get_button_text_style(&asset_server),
                             )],
                             alignment: TextAlignment::Center,
                             ..default()
